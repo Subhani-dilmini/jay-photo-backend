@@ -1,12 +1,15 @@
 package com.subhani.kavishkajaybackend.service;
 
+import com.subhani.kavishkajaybackend.dto.UserDetailDto;
 import com.subhani.kavishkajaybackend.dto.UserDto;
 import com.subhani.kavishkajaybackend.entity.User;
 import com.subhani.kavishkajaybackend.mapper.UserMapper;
 import com.subhani.kavishkajaybackend.repo.UserRepo;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -23,11 +26,41 @@ public class UserService {
         return userMapper.toDtoList(users);
     }
 
+    public UserDetailDto getUserDetails(int id) {
+        // Logic to fetch user by email from the repository
+       Optional<User> user = userRepo.findById(id);
+
+        if (user.isPresent()) {
+
+
+            return userMapper.toDetailsDto(user);
+        } else {
+            throw new RuntimeException("User not found ");
+        }
+   }
+
+
+    @Transactional
+    public UserDto updateUser(int userId, UserDetailDto userDetailsDto) {
+        // Fetch existing user
+        User existingUser = userRepo.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        // Update only editable fields
+        userMapper.updateUserFromDto(userDetailsDto, existingUser);
+
+        // Save the updated user
+        User updatedUser = userRepo.save(existingUser);
+
+        // Return updated user as DTO
+        return userMapper.toDto(updatedUser);
+    }
+
 }
 
 
 
-//
+
 //    public List<MeetingDTO> getAllMeetings(int customerId) {
 //        // Fetch meetings for the given customer ID
 //        List<Meeting> meetings = meetingRepository.findByCustomerId(customerId);
@@ -36,5 +69,5 @@ public class UserService {
 //        return meetings.stream()
 //                .map(meeting -> new MeetingDTO(meeting))  // Assumes MeetingDTO has a constructor
 //                .collect(Collectors.toList());
-//    }
+//   }
 
