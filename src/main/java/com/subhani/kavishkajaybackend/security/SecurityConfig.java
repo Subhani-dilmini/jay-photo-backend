@@ -43,7 +43,7 @@ public class SecurityConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .csrf(csrf -> csrf.disable())  // Disable CSRF protection (if needed)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/**").permitAll()   // Allow access to /auth endpoints without authentication
+                        .requestMatchers("/**").permitAll()   // Allow access to /auth endpoints without authentication
                         .anyRequest().authenticated()   // Require authentication for all other endpoints
                 )
                 .formLogin(withDefaults())   // Default form login
