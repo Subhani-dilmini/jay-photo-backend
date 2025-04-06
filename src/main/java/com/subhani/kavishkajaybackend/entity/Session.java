@@ -14,7 +14,7 @@ public class Session {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long sessionId;
+    private Long id;
 
     private BigDecimal amount;
 
@@ -40,14 +40,11 @@ public class Session {
     @JoinColumn(name = "package_id", nullable = false, referencedColumnName = "packageId")
     private PhotographicPackage aPackage;
 
-    @OneToMany(mappedBy = "session", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<SessionAdditionalItem> additionalItems = new ArrayList<>();;
-
     public Session() {
     }
 
-    public Session(Long sessionId, BigDecimal amount, LocalDate date, LocalTime time, String place, SessionStatus sessionStatus, PaymentStatus paymentStatus, double payment, User user, PhotographicPackage aPackage, List<SessionAdditionalItem> additionalItems) {
-        this.sessionId = sessionId;
+    public Session(Long sessionId, BigDecimal amount, LocalDate date, LocalTime time, String place, SessionStatus sessionStatus, PaymentStatus paymentStatus, double payment, User user, PhotographicPackage aPackage) {
+        this.id = sessionId;
         this.amount = amount;
         this.date = date;
         this.time = time;
@@ -57,15 +54,14 @@ public class Session {
         this.payment = payment;
         this.user = user;
         this.aPackage = aPackage;
-        this.additionalItems = additionalItems;
     }
 
     public Long getSessionId() {
-        return sessionId;
+        return id;
     }
 
     public void setSessionId(Long sessionId) {
-        this.sessionId = sessionId;
+        this.id = sessionId;
     }
 
     public BigDecimal getAmount() {
@@ -140,18 +136,10 @@ public class Session {
         this.aPackage = aPackage;
     }
 
-    public List<SessionAdditionalItem> getAdditionalItems() {
-        return additionalItems;
-    }
-
-    public void setAdditionalItems(List<SessionAdditionalItem> additionalItems) {
-        this.additionalItems = additionalItems;
-    }
-
     @Override
     public String toString() {
         return "Session{" +
-                "sessionId=" + sessionId +
+                "sessionId=" + id +
                 ", amount=" + amount +
                 ", date=" + date +
                 ", time=" + time +
@@ -161,7 +149,6 @@ public class Session {
                 ", payment='" + payment + '\'' +
                 ", user=" + user +
                 ", aPackage=" + aPackage +
-                ", additionalItems=" + additionalItems +
                 '}';
     }
 
