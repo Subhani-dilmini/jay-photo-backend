@@ -25,8 +25,9 @@ public class AuthController {
 //    }
 
     @PostMapping("/register")
-    public ResponseEntity<Map<String, String>> register(@Valid @RequestBody User user) {
+    public ResponseEntity<Map<String, String>> register(@RequestBody User user) {
         // Call the service class to handle the registration logic
+        user.setRole("customer");
         Map<String, String> response = authService.register(user);
 
         // Return a response with a message as JSON
