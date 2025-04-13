@@ -43,7 +43,7 @@ public class User {
     @Column(nullable = false, length = 100)
     private String password;
 
-    @Column(nullable = false, columnDefinition = "VARCHAR(10) DEFAULT 'customer'")
+    @Column(columnDefinition = "VARCHAR(10) DEFAULT 'customer'")
     private String role;
 
     public int getId() {
@@ -114,7 +114,7 @@ public class User {
         return role;
     }
 
-    public void setRole(@NotNull String role) {
+    public void setRole(String role) {
         this.role = role;
     }
 
