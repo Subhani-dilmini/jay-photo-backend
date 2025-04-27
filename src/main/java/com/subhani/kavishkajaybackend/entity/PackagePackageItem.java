@@ -1,5 +1,7 @@
 package com.subhani.kavishkajaybackend.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -12,10 +14,12 @@ public class PackagePackageItem {
 
     @ManyToOne
     @JoinColumn(name = "package_id", nullable = false)
+    @JsonBackReference
     private PhotographicPackage pkg;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "item_id", nullable = false)
+    @JsonManagedReference
     private PackageItem item;
 
     private int quantity;

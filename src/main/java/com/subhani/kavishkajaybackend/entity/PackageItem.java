@@ -1,5 +1,6 @@
 package com.subhani.kavishkajaybackend.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ public class PackageItem {
     private String name;
 
     @OneToMany(mappedBy = "item", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonBackReference
     private List<PackagePackageItem> packagePackageItems = new ArrayList<>();
 
     public PackageItem(String itemName) {
