@@ -1,0 +1,85 @@
+package com.subhani.kavishkajaybackend.dto;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+
+public class MeetingUserDto {
+    private String meetingMode;
+    private LocalDate date;
+    private LocalTime time;
+    private String place;
+    private String status;
+    private String userName;
+
+    public MeetingUserDto() {
+    }
+
+    public MeetingUserDto(String meetingMode, LocalDate date, LocalTime time, String place, String status, String userName) {
+        this.meetingMode = meetingMode;
+        this.date = date;
+        this.time = time;
+        this.place = place;
+        this.status = status;
+        this.userName = userName;
+    }
+
+    public String getMeetingMode() {
+        return meetingMode;
+    }
+
+    public void setMeetingMode(String meetingMode) {
+        this.meetingMode = meetingMode;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    public LocalTime getTime() {
+        return time;
+    }
+
+    public void setTime(LocalTime time) {
+        this.time = time;
+    }
+
+    public String getPlace() {
+        return place;
+    }
+
+    public void setPlace(String place) {
+        this.place = place;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    @Override
+    public String toString() {
+        return "MeetingUserDto{" +
+                "meetingMode='" + meetingMode + '\'' +
+                ", date=" + date +
+                ", time=" + time +
+                ", place='" + place + '\'' +
+                ", status='" + status + '\'' +
+                ", userName='" + userName + '\'' +
+                '}';
+    }
+}

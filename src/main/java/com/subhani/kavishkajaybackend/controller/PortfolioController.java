@@ -43,10 +43,12 @@ public class PortfolioController {
         return service.getAlbum(albumId);
     }
 
-    @DeleteMapping("/albums/{albumId}")
-    public ResponseEntity<String> deleteAlbum(@PathVariable Long albumId) {
-        service.deleteAlbum(albumId);
-        return ResponseEntity.ok("Album deleted");
-    }
+
+
+//    @DeleteMapping("/albums/{albumId}")
+//    public ResponseEntity<String> deleteAlbum(@PathVariable Long albumId) {
+//        service.deleteAlbum(albumId);
+//        return ResponseEntity.ok("Album deleted");
+//    }
 
 }

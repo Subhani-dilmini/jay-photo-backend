@@ -27,9 +27,8 @@ public interface PortfolioMapper {
     AlbumDetailsDTO toAlbumDetailsDTO(PhotoAlbum album);
 
     @Mapping(target = "name", source = "albumName")
-    @Mapping(target = "publishedDate", source = "publishedDate")
-//    @Mapping(target = "category", source = "category")
     PhotoAlbum toPhotoAlbum(CreateAlbumDTO dto, @Context PortfolioCategory categoryName);
+
 
     // For a single category with list of albums
     @Mapping(target = "categoryId", source = "id")
