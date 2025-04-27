@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/packages")
+@RequestMapping("/api/packages")
 public class PackageController {
 
     @Autowired
@@ -35,6 +35,7 @@ public class PackageController {
     // ✅ Get All Packages
     @GetMapping
     public ResponseEntity<List<PhotographicPackage>> getAllPackages() {
+        System.out.println("test");
         return ResponseEntity.ok(packageService.getAllPackages());
     }
 
