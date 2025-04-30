@@ -2,6 +2,7 @@ package com.subhani.kavishkajaybackend.controller;
 
 import com.subhani.kavishkajaybackend.dto.AddPackageRequestDto;
 import com.subhani.kavishkajaybackend.dto.UpdatePackageRequestDto;
+import com.subhani.kavishkajaybackend.entity.PackageItem;
 import com.subhani.kavishkajaybackend.entity.PhotographicPackage;
 import com.subhani.kavishkajaybackend.service.PackageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,5 +45,11 @@ public class PackageController {
     public ResponseEntity<Void> deletePackage(@PathVariable Long packageId) {
         packageService.deletePackage(packageId);
         return ResponseEntity.noContent().build();
+    }
+
+    // ✅ Get All items
+    @GetMapping("/availableItems")
+    public ResponseEntity<List<PackageItem>> getAllItems() {
+        return ResponseEntity.ok(packageService.getAllItems());
     }
 }

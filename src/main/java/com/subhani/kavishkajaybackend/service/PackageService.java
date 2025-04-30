@@ -25,6 +25,8 @@ public class PackageService {
     @Autowired
     private PackagePackageItemRepo packagePackageItemRepository;
 
+
+
     // ✅ Add Package
     public PhotographicPackage addPackage(AddPackageRequestDto request) {
         PhotographicPackage newPackage = new PhotographicPackage();
@@ -81,12 +83,18 @@ public class PackageService {
 
     // ✅ Get All Packages
     public List<PhotographicPackage> getAllPackages() {
+
         return packageRepository.findAll();
     }
 
     // ✅ Delete Package
     public void deletePackage(Long packageId) {
+
         packageRepository.deleteById(packageId);
     }
 
+    public List<PackageItem> getAllItems() {
+
+        return packageItemRepository.findAll();
+    }
 }
