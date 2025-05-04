@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class MeetingUserDto {
+    private int id;
     private String meetingMode;
     private LocalDate date;
     private LocalTime time;
@@ -14,13 +15,22 @@ public class MeetingUserDto {
     public MeetingUserDto() {
     }
 
-    public MeetingUserDto(String meetingMode, LocalDate date, LocalTime time, String place, String status, String userName) {
+    public MeetingUserDto(int id, String meetingMode, LocalDate date, LocalTime time, String place, String status, String userName) {
+        this.id = id;
         this.meetingMode = meetingMode;
         this.date = date;
         this.time = time;
         this.place = place;
         this.status = status;
         this.userName = userName;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getMeetingMode() {

@@ -4,6 +4,7 @@ import com.subhani.kavishkajaybackend.dto.CountDto;
 import com.subhani.kavishkajaybackend.dto.MeetingBasicDto;
 import com.subhani.kavishkajaybackend.dto.MeetingCreateDto;
 import com.subhani.kavishkajaybackend.dto.MeetingUserDto;
+import com.subhani.kavishkajaybackend.entity.Meeting;
 import com.subhani.kavishkajaybackend.service.MeetingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/meetings")
+@RequestMapping("/api/meetings")
 public class MeetingController {
 
     @Autowired
@@ -59,5 +60,10 @@ public class MeetingController {
     @GetMapping("/confirmed")
     public List<MeetingUserDto> getConfirmedMeetingsWithUser() {
         return service.getConfirmedMeetingUsers();
+    }
+
+    @PutMapping("/{id}/changeStatus")
+    public Meeting changeMeetingStatus(@PathVariable("id") Long id, @RequestParam("status") String status) {
+        return service.changeMeetingStatus(status, id);
     }
 }

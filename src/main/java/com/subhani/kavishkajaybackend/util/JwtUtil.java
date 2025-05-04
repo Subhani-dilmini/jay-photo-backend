@@ -19,6 +19,7 @@ public class JwtUtil {
     public String generateToken(User user) {
         return Jwts.builder()
                 .setSubject(user.getUsername())
+                .claim("id", user.getId())
                 .claim("email", user.getEmail())
                 .claim("role", user.getRole())
                 .claim("name", user.getFirstName() + " " + user.getLastName())

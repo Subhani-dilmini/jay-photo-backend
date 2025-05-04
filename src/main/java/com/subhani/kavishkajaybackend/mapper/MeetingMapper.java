@@ -33,6 +33,7 @@ public interface MeetingMapper {
     // For endpoint 6, 7
     default MeetingUserDto toMeetingUserDto(Meeting meeting) {
         MeetingUserDto dto = new MeetingUserDto();
+        dto.setId(meeting.getMeetingId());
         dto.setMeetingMode(meeting.getMeetingMode());
         dto.setDate(meeting.getDate());
         dto.setTime(meeting.getTime());
