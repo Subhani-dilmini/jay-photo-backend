@@ -1,6 +1,7 @@
 package com.subhani.kavishkajaybackend.controller;
 
 import com.subhani.kavishkajaybackend.dto.AddPackageRequestDto;
+import com.subhani.kavishkajaybackend.dto.PackageAvailableItemDto;
 import com.subhani.kavishkajaybackend.dto.UpdatePackageRequestDto;
 import com.subhani.kavishkajaybackend.entity.PackageItem;
 import com.subhani.kavishkajaybackend.entity.PhotographicPackage;
@@ -33,12 +34,6 @@ public class PackageController {
         return ResponseEntity.ok(updatedPackage);
     }
 
-    // ✅ Get All Packages
-    @GetMapping
-    public ResponseEntity<List<PhotographicPackage>> getAllPackages() {
-        System.out.println("test");
-        return ResponseEntity.ok(packageService.getAllPackages());
-    }
 
     // ✅ Delete Package
     @DeleteMapping("/{packageId}")
@@ -47,9 +42,17 @@ public class PackageController {
         return ResponseEntity.noContent().build();
     }
 
+
+    // ✅ Get All Packages
+    @GetMapping
+    public ResponseEntity<List<PhotographicPackage>> getAllPackages() {
+        System.out.println("test");
+        return ResponseEntity.ok(packageService.getAllPackages());
+    }
+
     // ✅ Get All items
     @GetMapping("/availableItems")
-    public ResponseEntity<List<PackageItem>> getAllItems() {
+    public ResponseEntity<List<PackageAvailableItemDto>> getAllItems() {
         return ResponseEntity.ok(packageService.getAllItems());
     }
 }

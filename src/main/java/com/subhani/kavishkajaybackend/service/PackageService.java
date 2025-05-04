@@ -1,13 +1,13 @@
 package com.subhani.kavishkajaybackend.service;
 
 import com.subhani.kavishkajaybackend.dto.AddPackageRequestDto;
+import com.subhani.kavishkajaybackend.dto.PackageAvailableItemDto;
 import com.subhani.kavishkajaybackend.dto.UpdatePackageRequestDto;
 import com.subhani.kavishkajaybackend.entity.PackageItem;
 import com.subhani.kavishkajaybackend.entity.PackagePackageItem;
 import com.subhani.kavishkajaybackend.entity.PhotographicPackage;
-import com.subhani.kavishkajaybackend.repo.PackageItemRepo;
-import com.subhani.kavishkajaybackend.repo.PackagePackageItemRepo;
-import com.subhani.kavishkajaybackend.repo.PackageRepo;
+import com.subhani.kavishkajaybackend.mapper.PackageMapper;
+import com.subhani.kavishkajaybackend.repo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,16 +15,23 @@ import java.util.List;
 
 @Service
 public class PackageService {
+    private final PackageMapper mapper;
+    @Autowired
+    private final PackageRepo packageRepository;
 
     @Autowired
-    private PackageRepo packageRepository;
+    private final PackageItemRepo packageItemRepository;
 
     @Autowired
-    private PackageItemRepo packageItemRepository;
+    private  final PackagePackageItemRepo packagePackageItemRepository;
 
-    @Autowired
-    private PackagePackageItemRepo packagePackageItemRepository;
 
+    public PackageService(PackageMapper mapper, PackageRepo packageRepository, PackageItemRepo packageItemRepository, PackagePackageItemRepo packagePackageItemRepository) {
+        this.mapper = mapper;
+        this.packageRepository = packageRepository;
+        this.packageItemRepository = packageItemRepository;
+        this.packagePackageItemRepository = packagePackageItemRepository;
+    }
 
 
     // ✅ Add Package
@@ -93,8 +100,10 @@ public class PackageService {
         packageRepository.deleteById(packageId);
     }
 
-    public List<PackageItem> getAllItems() {
+    public List<PackageAvailableItemDto> getAllItems() {
 
-        return packageItemRepository.findAll();
+        List<PackageItem> items = packageItemRepository.findAll();
+        return mapper.toDtoList(items);
+
     }
 }

@@ -29,25 +29,49 @@ public class Meeting {
     @Column(nullable = false, length = 225)
     private String place;
 
-    @NotNull //Java validation
-    @Column(nullable = false, length = 100)
-    private String status;
-
     @ManyToOne
     @JoinColumn(name = "userId")
     private User user;
 
+    @NotNull //Java validation
+    @Column(nullable = false, length = 225)
+    private String event;
+
+    @Enumerated(EnumType.STRING)
+    private MeetingStatus meetingStatus;
+
+    @Enumerated(EnumType.STRING)
+    private PaymentStatus paymentStatus;
+
     public Meeting() {
     }
 
-    public Meeting(int meetingId, String meetingMode, LocalDate date, LocalTime time, String place, String status, User user) {
+    public @NotNull String getEvent() {
+        return event;
+    }
+
+    public void setEvent(@NotNull String event) {
+        this.event = event;
+    }
+
+    public @NotNull PaymentStatus getPaymentStatus() {
+        return paymentStatus;
+    }
+
+    public void setPaymentStatus(@NotNull PaymentStatus paymentStatus) {
+        this.paymentStatus = paymentStatus;
+    }
+
+    public Meeting(int meetingId, String meetingMode, LocalDate date, LocalTime time, String place, User user, String event, MeetingStatus meetingStatus, PaymentStatus paymentStatus ) {
         this.meetingId = meetingId;
         this.meetingMode = meetingMode;
         this.date = date;
         this.time = time;
         this.place = place;
-        this.status = status;
+        this.meetingStatus = meetingStatus;
         this.user = user;
+        this.event = event;
+        this.paymentStatus = paymentStatus;
     }
 
     public int getMeetingId() {
@@ -90,12 +114,12 @@ public class Meeting {
         this.place = place;
     }
 
-    public @NotNull String getStatus() {
-        return status;
+    public @NotNull MeetingStatus getStatus() {
+        return meetingStatus;
     }
 
-    public void setStatus(@NotNull String status) {
-        this.status = status;
+    public void setStatus(@NotNull MeetingStatus status) {
+        this.meetingStatus = status;
     }
 
     public User getUser() {
@@ -114,8 +138,18 @@ public class Meeting {
                 ", date=" + date +
                 ", time=" + time +
                 ", place='" + place + '\'' +
-                ", status='" + status + '\'' +
+                ", status='" + meetingStatus + '\'' +
                 ", user=" + user +
                 '}';
+    }
+
+    // Enum for MeetingStatus
+    public enum MeetingStatus {
+        PENDING, CONFIRMED, COMPLETED, CANCELED
+    }
+
+    // Enum for MeetingPaymentStatus
+    public enum PaymentStatus {
+        PENDING, PAID, FAILED
     }
 }

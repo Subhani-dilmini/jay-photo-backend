@@ -152,7 +152,7 @@ public class Session {
 
     // Enum for SessionStatus
     public enum SessionStatus {
-        PENDING, COMPLETED, CANCELED
+        PENDING, Confirmed, COMPLETED, CANCELED
     }
 
     // Enum for PaymentStatus
