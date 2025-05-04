@@ -26,14 +26,20 @@ public class UserService {
         return userMapper.toDtoList(users);
     }
 
+    public List<UserDto> getAllCustomers() {
+        List<User> users = userRepo.findByRole("customer");
+        return userMapper.toDtoList(users);
+    }
+
     public UserDetailDto getUserDetails(int id) {
         // Logic to fetch user by email from the repository
        Optional<User> user = userRepo.findById(id);
+        System.out.println(user);
 
         if (user.isPresent()) {
 
 
-            return userMapper.toDetailsDto(user);
+            return userMapper.toDetailsDto(user.get());
         } else {
             throw new RuntimeException("User not found ");
         }

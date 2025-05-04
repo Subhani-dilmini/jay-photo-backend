@@ -29,5 +29,5 @@ public interface UserMapper {
     void updateUserFromDto(UserDetailDto dto, @MappingTarget User user);
 
 
-    UserDetailDto toDetailsDto(Optional<User> user); // New method for limited data
+    UserDetailDto toDetailsDto(User user); // New method for limited data
 }

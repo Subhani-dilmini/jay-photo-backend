@@ -66,4 +66,12 @@ public class MeetingService {
         return meetingRepo.findByStatus("CONFIRMED")
                 .stream().map(meetingMapper::toMeetingUserDto).toList();
     }
+
+    // Endpoint 8: change status
+    public Meeting changeMeetingStatus(String status, Long id) {
+        Meeting meeting = meetingRepo.findById(id).orElseThrow();
+        meeting.setStatus(status);
+
+        return meetingRepo.save(meeting);
+    }
 }
