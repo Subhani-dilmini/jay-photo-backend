@@ -9,6 +9,7 @@ public class MeetingCreateDto {
     private LocalDate date;
     private LocalTime time;
     private String meetingMode;
+    private String event;
     private String place;
 
     public MeetingCreateDto() {
@@ -54,6 +55,14 @@ public class MeetingCreateDto {
         this.meetingMode = meetingMode;
     }
 
+    public String getEvent() {
+        return event;
+    }
+
+    public void setEvent(String event) {
+        this.event = event;
+    }
+
     public String getPlace() {
         return place;
     }
@@ -69,6 +78,7 @@ public class MeetingCreateDto {
                 ", date=" + date +
                 ", time=" + time +
                 ", meetingMode='" + meetingMode + '\'' +
+                ", event='" + event + '\'' +
                 ", place='" + place + '\'' +
                 '}';
     }

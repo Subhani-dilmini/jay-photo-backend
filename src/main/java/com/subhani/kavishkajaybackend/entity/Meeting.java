@@ -1,5 +1,6 @@
 package com.subhani.kavishkajaybackend.entity;
 
+import com.subhani.kavishkajaybackend.enumeration.MeetingStatus;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
@@ -118,7 +119,7 @@ public class Meeting {
         return meetingStatus;
     }
 
-    public void setStatus(@NotNull MeetingStatus status) {
+    public void setMeetingStatus(@NotNull MeetingStatus status) {
         this.meetingStatus = status;
     }
 
@@ -138,15 +139,13 @@ public class Meeting {
                 ", date=" + date +
                 ", time=" + time +
                 ", place='" + place + '\'' +
-                ", status='" + meetingStatus + '\'' +
+                ", meetingStatus='" + meetingStatus + '\'' +
                 ", user=" + user +
                 '}';
     }
 
     // Enum for MeetingStatus
-    public enum MeetingStatus {
-        PENDING, CONFIRMED, COMPLETED, CANCELED
-    }
+
 
     // Enum for MeetingPaymentStatus
     public enum PaymentStatus {

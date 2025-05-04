@@ -1,5 +1,8 @@
 package com.subhani.kavishkajaybackend.dto;
 
+import com.subhani.kavishkajaybackend.entity.Meeting;
+import com.subhani.kavishkajaybackend.enumeration.MeetingStatus;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -9,13 +12,13 @@ public class MeetingUserDto {
     private LocalDate date;
     private LocalTime time;
     private String place;
-    private String status;
+    private MeetingStatus status;
     private String userName;
 
     public MeetingUserDto() {
     }
 
-    public MeetingUserDto(int id, String meetingMode, LocalDate date, LocalTime time, String place, String status, String userName) {
+    public MeetingUserDto(int id, String meetingMode, LocalDate date, LocalTime time, String place, MeetingStatus status, String userName) {
         this.id = id;
         this.meetingMode = meetingMode;
         this.date = date;
@@ -65,11 +68,11 @@ public class MeetingUserDto {
         this.place = place;
     }
 
-    public String getStatus() {
+    public MeetingStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(MeetingStatus status) {
         this.status = status;
     }
 

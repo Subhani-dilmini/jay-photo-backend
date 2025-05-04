@@ -5,6 +5,7 @@ import com.subhani.kavishkajaybackend.dto.MeetingBasicDto;
 import com.subhani.kavishkajaybackend.dto.MeetingCreateDto;
 import com.subhani.kavishkajaybackend.dto.MeetingUserDto;
 import com.subhani.kavishkajaybackend.entity.Meeting;
+import com.subhani.kavishkajaybackend.enumeration.MeetingStatus;
 import com.subhani.kavishkajaybackend.service.MeetingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -63,7 +64,7 @@ public class MeetingController {
     }
 
     @PutMapping("/{id}/changeStatus")
-    public Meeting changeMeetingStatus(@PathVariable("id") Long id, @RequestParam("status") String status) {
+    public Meeting changeMeetingStatus(@PathVariable("id") Long id, @RequestParam("status") MeetingStatus status) {
         return service.changeMeetingStatus(status, id);
     }
 }

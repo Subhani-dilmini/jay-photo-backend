@@ -1,5 +1,8 @@
 package com.subhani.kavishkajaybackend.dto;
 
+import com.subhani.kavishkajaybackend.entity.Meeting;
+import com.subhani.kavishkajaybackend.enumeration.MeetingStatus;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -8,18 +11,18 @@ public class MeetingBasicDto {
     private LocalDate date;
     private LocalTime time;
     private String place;
-    private String status;
+    private MeetingStatus meetingStatus;
     private long userId;
 
     public MeetingBasicDto() {
     }
 
-    public MeetingBasicDto(int meetingId, LocalDate date, LocalTime time, String place, String status, Long userId) {
+    public MeetingBasicDto(int meetingId, LocalDate date, LocalTime time, String place, MeetingStatus meetingStatus, Long userId) {
         this.meetingId = meetingId;
         this.date = date;
         this.time = time;
         this.place = place;
-        this.status = status;
+        this.meetingStatus = meetingStatus;
         this.userId = userId;
     }
 
@@ -55,12 +58,12 @@ public class MeetingBasicDto {
         this.place = place;
     }
 
-    public String getStatus() {
-        return status;
+    public MeetingStatus getMeetingStatus() {
+        return meetingStatus;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setMeetingStatus(MeetingStatus status) {
+        this.meetingStatus = status;
     }
 
     public Long getUserId() {
@@ -78,7 +81,7 @@ public class MeetingBasicDto {
                 ", date=" + date +
                 ", time=" + time +
                 ", place='" + place + '\'' +
-                ", status='" + status + '\'' +
+                ", meetingStatus='" + meetingStatus + '\'' +
                 ", userId=" + userId +
                 '}';
     }

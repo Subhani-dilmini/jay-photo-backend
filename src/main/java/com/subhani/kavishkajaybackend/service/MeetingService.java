@@ -6,6 +6,7 @@ import com.subhani.kavishkajaybackend.dto.MeetingCreateDto;
 import com.subhani.kavishkajaybackend.dto.MeetingUserDto;
 import com.subhani.kavishkajaybackend.entity.Meeting;
 import com.subhani.kavishkajaybackend.entity.User;
+import com.subhani.kavishkajaybackend.enumeration.MeetingStatus;
 import com.subhani.kavishkajaybackend.mapper.MeetingMapper;
 import com.subhani.kavishkajaybackend.repo.MeetingRepo;
 import com.subhani.kavishkajaybackend.repo.UserRepo;
@@ -28,13 +29,13 @@ public class MeetingService {
 
     // Endpoint 1: count pending/confirmed
     public CountDto getPendingOrConfirmedCount() {
-        Long count = meetingRepo.countByStatusIn(List.of("PENDING", "CONFIRMED"));
+        Long count = meetingRepo.countByMeetingStatusIn(List.of(MeetingStatus.PENDING, MeetingStatus.CONFIRMED));
         return meetingMapper.toCountDto(count);
     }
 
     // Endpoint 2: get all upcoming
     public List<MeetingBasicDto> getUpcomingMeetings() {
-        return meetingRepo.findByStatusIn(List.of("PENDING", "CONFIRMED"))
+        return meetingRepo.findByMeetingStatusIn(List.of(MeetingStatus.PENDING, MeetingStatus.CONFIRMED))
                 .stream().map(meetingMapper::toMeetingBasicDto).toList();
     }
 
@@ -47,30 +48,30 @@ public class MeetingService {
 
     // Endpoint 4: count pending only
     public CountDto getPendingCount() {
-        return meetingMapper.toCountDto(meetingRepo.countByStatus("PENDING"));
+        return meetingMapper.toCountDto(meetingRepo.countByMeetingStatus(MeetingStatus.PENDING));
     }
 
     // Endpoint 5: count confirmed only
     public CountDto getConfirmedCount() {
-        return meetingMapper.toCountDto(meetingRepo.countByStatus("CONFIRMED"));
+        return meetingMapper.toCountDto(meetingRepo.countByMeetingStatus(MeetingStatus.CONFIRMED));
     }
 
     // Endpoint 6: pending meetings + userName
     public List<MeetingUserDto> getPendingMeetingUsers() {
-        return meetingRepo.findByStatus("PENDING")
+        return meetingRepo.findByMeetingStatus(MeetingStatus.PENDING)
                 .stream().map(meetingMapper::toMeetingUserDto).toList();
     }
 
     // Endpoint 7: confirmed meetings + userName
     public List<MeetingUserDto> getConfirmedMeetingUsers() {
-        return meetingRepo.findByStatus("CONFIRMED")
+        return meetingRepo.findByMeetingStatus(MeetingStatus.CONFIRMED)
                 .stream().map(meetingMapper::toMeetingUserDto).toList();
     }
 
     // Endpoint 8: change status
-    public Meeting changeMeetingStatus(String status, Long id) {
+    public Meeting changeMeetingStatus(MeetingStatus status, Long id) {
         Meeting meeting = meetingRepo.findById(id).orElseThrow();
-        meeting.setStatus(status);
+        meeting.setMeetingStatus(status);
 
         return meetingRepo.save(meeting);
     }

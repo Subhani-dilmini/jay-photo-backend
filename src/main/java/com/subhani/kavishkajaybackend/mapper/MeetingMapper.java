@@ -6,6 +6,7 @@ import com.subhani.kavishkajaybackend.dto.MeetingCreateDto;
 import com.subhani.kavishkajaybackend.dto.MeetingUserDto;
 import com.subhani.kavishkajaybackend.entity.Meeting;
 import com.subhani.kavishkajaybackend.entity.User;
+import com.subhani.kavishkajaybackend.enumeration.MeetingStatus;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
@@ -25,7 +26,7 @@ public interface MeetingMapper {
         dto.setDate(meeting.getDate());
         dto.setTime(meeting.getTime());
         dto.setPlace(meeting.getPlace());
-        dto.setStatus(meeting.getStatus());
+        dto.setMeetingStatus(meeting.getStatus());
         dto.setUserId(meeting.getUser().getId());
         return dto;
     }
@@ -50,7 +51,9 @@ public interface MeetingMapper {
         meeting.setTime(dto.getTime());
         meeting.setMeetingMode(dto.getMeetingMode());
         meeting.setPlace(dto.getPlace());
-        meeting.setStatus("PENDING"); // default
+        meeting.setEvent(dto.getEvent());
+        meeting.setMeetingStatus(MeetingStatus.PENDING);
+        meeting.setPaymentStatus(Meeting.PaymentStatus.PENDING);// default
         meeting.setUser(user);
         return meeting;
     }

@@ -24,6 +24,7 @@ public class JwtUtil {
                 .claim("role", user.getRole())
                 .claim("name", user.getFirstName() + " " + user.getLastName())
                 .claim("phoneNumber", user.getPhoneNumber())
+                .claim("address", user.getAddress())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + 2 * 60 * 60 * 1000)) // 1 hour
                 .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
