@@ -1,8 +1,10 @@
 package com.subhani.kavishkajaybackend.controller;
 
+import com.subhani.kavishkajaybackend.dto.AddPackageItemDto;
 import com.subhani.kavishkajaybackend.dto.AddPackageRequestDto;
 import com.subhani.kavishkajaybackend.dto.PackageAvailableItemDto;
 import com.subhani.kavishkajaybackend.dto.UpdatePackageRequestDto;
+import com.subhani.kavishkajaybackend.entity.AdditionalItem;
 import com.subhani.kavishkajaybackend.entity.PackageItem;
 import com.subhani.kavishkajaybackend.entity.PhotographicPackage;
 import com.subhani.kavishkajaybackend.service.PackageService;
@@ -26,6 +28,26 @@ public class PackageController {
         PhotographicPackage newPackage = packageService.addPackage(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(newPackage);
     }
+
+
+
+
+
+
+
+
+
+    @PostMapping("/items")
+    public ResponseEntity<AdditionalItem> addPackageItem(@RequestBody AddPackageItemDto additionalItem) {
+        AdditionalItem newItem = packageService.addPackageItem(additionalItem);
+        return ResponseEntity.status(HttpStatus.CREATED).body(newItem);
+    }
+
+
+
+
+
+
 
     // ✅ Update Package
     @PutMapping

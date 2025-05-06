@@ -1,8 +1,10 @@
 package com.subhani.kavishkajaybackend.service;
 
+import com.subhani.kavishkajaybackend.dto.AddPackageItemDto;
 import com.subhani.kavishkajaybackend.dto.AddPackageRequestDto;
 import com.subhani.kavishkajaybackend.dto.PackageAvailableItemDto;
 import com.subhani.kavishkajaybackend.dto.UpdatePackageRequestDto;
+import com.subhani.kavishkajaybackend.entity.AdditionalItem;
 import com.subhani.kavishkajaybackend.entity.PackageItem;
 import com.subhani.kavishkajaybackend.entity.PackagePackageItem;
 import com.subhani.kavishkajaybackend.entity.PhotographicPackage;
@@ -25,12 +27,16 @@ public class PackageService {
     @Autowired
     private  final PackagePackageItemRepo packagePackageItemRepository;
 
+    @Autowired
+    private final AdditionalItemRepo additionalItemRepository;
 
-    public PackageService(PackageMapper mapper, PackageRepo packageRepository, PackageItemRepo packageItemRepository, PackagePackageItemRepo packagePackageItemRepository) {
+
+    public PackageService(PackageMapper mapper, PackageRepo packageRepository, PackageItemRepo packageItemRepository, PackagePackageItemRepo packagePackageItemRepository, AdditionalItemRepo additionalItemRepository) {
         this.mapper = mapper;
         this.packageRepository = packageRepository;
         this.packageItemRepository = packageItemRepository;
         this.packagePackageItemRepository = packagePackageItemRepository;
+        this.additionalItemRepository = additionalItemRepository;
     }
 
 
@@ -58,6 +64,16 @@ public class PackageService {
             packagePackageItemRepository.save(packageItem);
         }
 
+        return savedPackage;
+    }
+
+    // ✅ Add Package item
+    public AdditionalItem addPackageItem(AddPackageItemDto additionalItem) {
+        AdditionalItem newPackage = new AdditionalItem();
+        newPackage.setName(additionalItem.getName());
+        newPackage.setPrice(additionalItem.getPrice());
+        AdditionalItem savedPackage;
+        savedPackage = additionalItemRepository.save(newPackage);
         return savedPackage;
     }
 
