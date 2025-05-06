@@ -1,9 +1,6 @@
 package com.subhani.kavishkajaybackend.controller;
 
-import com.subhani.kavishkajaybackend.dto.AlbumDetailsDTO;
-import com.subhani.kavishkajaybackend.dto.CategoryDTO;
-import com.subhani.kavishkajaybackend.dto.CategoryWithAlbumsDTO;
-import com.subhani.kavishkajaybackend.dto.CreateAlbumDTO;
+import com.subhani.kavishkajaybackend.dto.*;
 import com.subhani.kavishkajaybackend.service.PortfolioService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,6 +33,12 @@ public class PortfolioController {
                                            @RequestBody CreateAlbumDTO dto) {
         service.addAlbum(categoryId, dto);
         return ResponseEntity.status(HttpStatus.CREATED).body("Album added");
+    }
+
+    @PostMapping("/categories")
+    public ResponseEntity<String> addCategory(@RequestBody CreateCategoryDTO dto) {
+        service.addCategory(dto);
+        return ResponseEntity.status(HttpStatus.CREATED).body("Category added");
     }
 
     @GetMapping("/albums/{albumId}")

@@ -32,6 +32,9 @@ public interface PortfolioMapper {
     PhotoAlbum toPhotoAlbum(CreateAlbumDTO dto, PortfolioCategory category);
 
 
+    PortfolioCategory toCategory(CreateCategoryDTO dto);
+
+
     // For a single category with list of albums
     @Mapping(target = "categoryId", source = "id")
     @Mapping(target = "categoryName", source = "categoryName")
