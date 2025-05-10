@@ -1,20 +1,20 @@
 package com.subhani.kavishkajaybackend.mapper;
 
-import com.subhani.kavishkajaybackend.dto.PackageAvailableItemDto;
+import com.subhani.kavishkajaybackend.dto.AddPackageRequestDto.ItemDto;
+import com.subhani.kavishkajaybackend.dto.AddPackageRequestDto.PackageItemDto;
 import com.subhani.kavishkajaybackend.entity.PackageItem;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 
 import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface PackageMapper {
 
-    // Single object mappings
-    PackageAvailableItemDto toDto(PackageItem item);
-    PackageItem toEntity(PackageAvailableItemDto dto);
+    ItemDto toDto(PackageItem item);
+    PackageItem toEntity(ItemDto dto);
 
-    // List mappings
-    List<PackageAvailableItemDto> toDtoList(List<PackageItem> items);
-    List<PackageItem> toEntityList(List<PackageAvailableItemDto> dtos);
+    List<ItemDto> toDtoList(List<PackageItem> items);
+    List<PackageItem> toEntityList(List<ItemDto> dtos);
+
+    PackageItemDto toPackageItemDto(PackageItem item);
 }

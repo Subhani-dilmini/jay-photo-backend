@@ -2,7 +2,6 @@ package com.subhani.kavishkajaybackend.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,17 +19,11 @@ public class PackageItem {
     @JsonBackReference
     private List<PackagePackageItem> packagePackageItems = new ArrayList<>();
 
-    public PackageItem(String itemName) {
-    }
-
-    public PackageItem(Long itemId, String name, List<PackagePackageItem> packagePackageItems) {
-        this.itemId = itemId;
-        this.name = name;
-        this.packagePackageItems = packagePackageItems;
-    }
-
     public PackageItem() {
+    }
 
+    public PackageItem(String name) {
+        this.name = name;
     }
 
     public Long getItemId() {
@@ -55,14 +48,5 @@ public class PackageItem {
 
     public void setPackagePackageItems(List<PackagePackageItem> packagePackageItems) {
         this.packagePackageItems = packagePackageItems;
-    }
-
-    @Override
-    public String toString() {
-        return "PackageItem{" +
-                "itemId=" + itemId +
-                ", name='" + name + '\'' +
-                ", packagePackageItems=" + packagePackageItems +
-                '}';
     }
 }

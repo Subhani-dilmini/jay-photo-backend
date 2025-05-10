@@ -2,22 +2,19 @@ package com.subhani.kavishkajaybackend.dto;
 
 import java.util.List;
 
-//Adding a Package (Create DTO)
 public class AddPackageRequestDto {
 
     private String name;
     private Double price;
-    private List<String> itemNames; // Change itemIds → itemNames
-    private List<Integer> quantities;
+    private List<PackageItemDto> packageItems;
 
     public AddPackageRequestDto() {
     }
 
-    public AddPackageRequestDto(String name, Double price, List<String> itemNames, List<Integer> quantities) {
+    public AddPackageRequestDto(String name, Double price, List<PackageItemDto> packageItems) {
         this.name = name;
         this.price = price;
-        this.itemNames = itemNames;
-        this.quantities = quantities;
+        this.packageItems = packageItems;
     }
 
     public String getName() {
@@ -36,19 +33,71 @@ public class AddPackageRequestDto {
         this.price = price;
     }
 
-    public List<String> getItemNames() {
-        return itemNames;
+    public List<PackageItemDto> getPackageItems() {
+        return packageItems;
     }
 
-    public void setItemNames(List<String> itemNames) {
-        this.itemNames = itemNames;
+    public void setPackageItems(List<PackageItemDto> packageItems) {
+        this.packageItems = packageItems;
     }
 
-    public List<Integer> getQuantities() {
-        return quantities;
+    // Inner DTO class for package items
+    public static class PackageItemDto {
+        private ItemDto item;
+        private int quantity;
+
+        public PackageItemDto() {
+        }
+
+        public PackageItemDto(ItemDto item, int quantity) {
+            this.item = item;
+            this.quantity = quantity;
+        }
+
+        public ItemDto getItem() {
+            return item;
+        }
+
+        public void setItem(ItemDto item) {
+            this.item = item;
+        }
+
+        public int getQuantity() {
+            return quantity;
+        }
+
+        public void setQuantity(int quantity) {
+            this.quantity = quantity;
+        }
     }
 
-    public void setQuantities(List<Integer> quantities) {
-        this.quantities = quantities;
+    // Inner DTO class for item details
+    public static class ItemDto {
+        private Long itemId;
+        private String name;
+
+        public ItemDto() {
+        }
+
+        public ItemDto(Long itemId, String name) {
+            this.itemId = itemId;
+            this.name = name;
+        }
+
+        public Long getItemId() {
+            return itemId;
+        }
+
+        public void setItemId(Long itemId) {
+            this.itemId = itemId;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
     }
 }

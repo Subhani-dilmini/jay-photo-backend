@@ -35,7 +35,7 @@ public class MeetingService {
 
     // Endpoint 2: get all upcoming
     public List<MeetingBasicDto> getUpcomingMeetings() {
-        return meetingRepo.findByMeetingStatusIn(List.of(MeetingStatus.PENDING, MeetingStatus.CONFIRMED))
+        return meetingRepo.findByMeetingStatusIn(List.of(MeetingStatus.PENDING, MeetingStatus.CONFIRMED, MeetingStatus.CANCELED))
                 .stream().map(meetingMapper::toMeetingBasicDto).toList();
     }
 
@@ -75,4 +75,16 @@ public class MeetingService {
 
         return meetingRepo.save(meeting);
     }
+
+    public List<MeetingBasicDto> getMeetingsByUser(Integer userId) {
+        User user = userRepo.findById(userId).orElseThrow();
+        return meetingRepo.findByUser(user)
+                .stream().map(meetingMapper::toMeetingBasicDto).toList();
+    }
+
+    public CountDto getCountByUser(Integer userId) {
+        User user = userRepo.findById(userId).orElseThrow();
+        return meetingMapper.toCountDto(meetingRepo.countByUser(user));
+    }
+
 }

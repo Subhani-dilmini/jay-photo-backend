@@ -2,10 +2,8 @@ package com.subhani.kavishkajaybackend.controller;
 
 import com.subhani.kavishkajaybackend.dto.AddPackageItemDto;
 import com.subhani.kavishkajaybackend.dto.AddPackageRequestDto;
-import com.subhani.kavishkajaybackend.dto.PackageAvailableItemDto;
 import com.subhani.kavishkajaybackend.dto.UpdatePackageRequestDto;
 import com.subhani.kavishkajaybackend.entity.AdditionalItem;
-import com.subhani.kavishkajaybackend.entity.PackageItem;
 import com.subhani.kavishkajaybackend.entity.PhotographicPackage;
 import com.subhani.kavishkajaybackend.service.PackageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,7 +72,7 @@ public class PackageController {
 
     // ✅ Get All items
     @GetMapping("/availableItems")
-    public ResponseEntity<List<PackageAvailableItemDto>> getAllItems() {
+    public ResponseEntity<List<AddPackageRequestDto.ItemDto>> getAllItems() {
         return ResponseEntity.ok(packageService.getAllItems());
     }
 }

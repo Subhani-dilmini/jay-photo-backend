@@ -2,7 +2,6 @@ package com.subhani.kavishkajaybackend.service;
 
 import com.subhani.kavishkajaybackend.dto.AddPackageItemDto;
 import com.subhani.kavishkajaybackend.dto.AddPackageRequestDto;
-import com.subhani.kavishkajaybackend.dto.PackageAvailableItemDto;
 import com.subhani.kavishkajaybackend.dto.UpdatePackageRequestDto;
 import com.subhani.kavishkajaybackend.entity.AdditionalItem;
 import com.subhani.kavishkajaybackend.entity.PackageItem;
@@ -47,12 +46,13 @@ public class PackageService {
         newPackage.setPrice(request.getPrice());
         PhotographicPackage savedPackage = packageRepository.save(newPackage);
 
-        for (int i = 0; i < request.getItemNames().size(); i++) {
-            String itemName = request.getItemNames().get(i);
-            int quantity = request.getQuantities().get(i);
+        for (AddPackageRequestDto.PackageItemDto packageItemDto : request.getPackageItems()) {
+            Long itemId = packageItemDto.getItem().getItemId();
+            String itemName = packageItemDto.getItem().getName();
+            int quantity = packageItemDto.getQuantity();
 
-            // Find or Create Item
-            PackageItem item = packageItemRepository.findByName(itemName)
+            // Find or create the item by ID or name
+            PackageItem item = packageItemRepository.findById(itemId)
                     .orElseGet(() -> packageItemRepository.save(new PackageItem(itemName)));
 
             // Create PackagePackageItem relationship
@@ -66,6 +66,8 @@ public class PackageService {
 
         return savedPackage;
     }
+
+
 
     // ✅ Add Package item
     public AdditionalItem addPackageItem(AddPackageItemDto additionalItem) {
@@ -116,7 +118,7 @@ public class PackageService {
         packageRepository.deleteById(packageId);
     }
 
-    public List<PackageAvailableItemDto> getAllItems() {
+    public List<AddPackageRequestDto.ItemDto> getAllItems() {
 
         List<PackageItem> items = packageItemRepository.findAll();
         return mapper.toDtoList(items);

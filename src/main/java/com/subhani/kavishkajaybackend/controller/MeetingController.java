@@ -67,4 +67,14 @@ public class MeetingController {
     public Meeting changeMeetingStatus(@PathVariable("id") Long id, @RequestParam("status") MeetingStatus status) {
         return service.changeMeetingStatus(status, id);
     }
+
+    @GetMapping("/getByUser/{id}")
+    public List<MeetingBasicDto> getMeetingsByUser(@PathVariable("id") Integer id) {
+        return service.getMeetingsByUser(id);
+    }
+
+    @GetMapping("/getCountByUser/{id}")
+    public CountDto getCountByUser(@PathVariable("id") Integer id) {
+        return service.getCountByUser(id);
+    }
 }
