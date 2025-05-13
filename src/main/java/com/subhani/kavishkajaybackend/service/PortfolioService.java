@@ -30,11 +30,18 @@ public class PortfolioService {
         return mapper.toCategoryDTOList(categoryRepository.findAll());
     }
 
+    public CategoryDTO getCategoryDetails(Long categoryId) {
+        return mapper.toCategoryDTO(categoryRepository.findById( categoryId)
+                .orElseThrow(() -> new RuntimeException("Category not found")));
+
+    }
+
     public CategoryWithAlbumsDTO getAlbumsByCategoryId(Long categoryId) {
         PortfolioCategory category = categoryRepository.findById(categoryId)
                 .orElseThrow(() -> new RuntimeException("Category not found"));
         return mapper.toCategoryWithAlbumsDTO(category);
     }
+
 
     public void addAlbum(Long categoryId, CreateAlbumDTO dto) {
         PortfolioCategory category = categoryRepository.findById(categoryId)

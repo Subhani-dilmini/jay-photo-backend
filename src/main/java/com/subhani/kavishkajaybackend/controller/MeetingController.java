@@ -51,11 +51,16 @@ public class MeetingController {
         return service.getConfirmedCount();
     }
 
+
+
     // (6) get pending with username
     @GetMapping("/pending")
     public List<MeetingUserDto> getPendingMeetingsWithUser() {
         return service.getPendingMeetingUsers();
     }
+
+
+
 
     // (7) get confirmed with username
     @GetMapping("/confirmed")

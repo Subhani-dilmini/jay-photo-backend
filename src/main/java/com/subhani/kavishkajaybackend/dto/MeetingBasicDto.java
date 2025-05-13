@@ -11,17 +11,41 @@ public class MeetingBasicDto {
     private LocalDate date;
     private LocalTime time;
     private String place;
+    private String event;
+    private String meetingMode;
     private MeetingStatus meetingStatus;
     private long userId;
 
     public MeetingBasicDto() {
     }
 
-    public MeetingBasicDto(int meetingId, LocalDate date, LocalTime time, String place, MeetingStatus meetingStatus, Long userId) {
+    public String getEvent() {
+        return event;
+    }
+
+    public void setEvent(String event) {
+        this.event = event;
+    }
+
+    public String getMeetingMode() {
+        return meetingMode;
+    }
+
+    public void setMeetingMode(String meetingMode) {
+        this.meetingMode = meetingMode;
+    }
+
+    public void setUserId(long userId) {
+        this.userId = userId;
+    }
+
+    public MeetingBasicDto(int meetingId, LocalDate date, LocalTime time, String place, String event, String meetingMode, MeetingStatus meetingStatus, long userId) {
         this.meetingId = meetingId;
         this.date = date;
         this.time = time;
         this.place = place;
+        this.event = event;
+        this.meetingMode = meetingMode;
         this.meetingStatus = meetingStatus;
         this.userId = userId;
     }
@@ -81,7 +105,9 @@ public class MeetingBasicDto {
                 ", date=" + date +
                 ", time=" + time +
                 ", place='" + place + '\'' +
-                ", meetingStatus='" + meetingStatus + '\'' +
+                ", event='" + event + '\'' +
+                ", meetingMode='" + meetingMode + '\'' +
+                ", meetingStatus=" + meetingStatus +
                 ", userId=" + userId +
                 '}';
     }

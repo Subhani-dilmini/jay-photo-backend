@@ -18,10 +18,18 @@ public class PortfolioController {
         this.service = service;
     }
 
+
+
     @GetMapping("/categories")
     public List<CategoryDTO> getAllCategories() {
         return service.getAllCategories();
     }
+
+    @GetMapping("/categories/{categoryId}")
+    public CategoryDTO getCategoryDetails(@PathVariable Long categoryId) {
+        return service.getCategoryDetails(categoryId);
+    }
+
 
     @GetMapping("/categories/{categoryId}/albums")
     public CategoryWithAlbumsDTO getAlbumsByCategory(@PathVariable Long categoryId) {

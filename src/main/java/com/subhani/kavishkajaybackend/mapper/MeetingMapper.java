@@ -26,7 +26,7 @@ public interface MeetingMapper {
         dto.setDate(meeting.getDate());
         dto.setTime(meeting.getTime());
         dto.setPlace(meeting.getPlace());
-        dto.setMeetingStatus(meeting.getStatus());
+        dto.setMeetingStatus(meeting.getMeetingStatus());
         dto.setUserId(meeting.getUser().getId());
         return dto;
     }
@@ -39,7 +39,7 @@ public interface MeetingMapper {
         dto.setDate(meeting.getDate());
         dto.setTime(meeting.getTime());
         dto.setPlace(meeting.getPlace());
-        dto.setStatus(meeting.getStatus());
+        dto.setMeetingStatus(meeting.getMeetingStatus());
         dto.setUserName(meeting.getUser().getUsername());
         return dto;
     }
@@ -53,7 +53,6 @@ public interface MeetingMapper {
         meeting.setPlace(dto.getPlace());
         meeting.setEvent(dto.getEvent());
         meeting.setMeetingStatus(MeetingStatus.PENDING);
-        meeting.setPaymentStatus(Meeting.PaymentStatus.PENDING);// default
         meeting.setUser(user);
         return meeting;
     }

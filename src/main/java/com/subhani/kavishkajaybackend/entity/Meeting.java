@@ -1,8 +1,8 @@
 package com.subhani.kavishkajaybackend.entity;
 
-import com.subhani.kavishkajaybackend.enumeration.MeetingStatus;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import com.subhani.kavishkajaybackend.enumeration.MeetingStatus;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -41,9 +41,6 @@ public class Meeting {
     @Enumerated(EnumType.STRING)
     private MeetingStatus meetingStatus;
 
-    @Enumerated(EnumType.STRING)
-    private PaymentStatus paymentStatus;
-
     public Meeting() {
     }
 
@@ -55,15 +52,8 @@ public class Meeting {
         this.event = event;
     }
 
-    public @NotNull PaymentStatus getPaymentStatus() {
-        return paymentStatus;
-    }
 
-    public void setPaymentStatus(@NotNull PaymentStatus paymentStatus) {
-        this.paymentStatus = paymentStatus;
-    }
-
-    public Meeting(int meetingId, String meetingMode, LocalDate date, LocalTime time, String place, User user, String event, MeetingStatus meetingStatus, PaymentStatus paymentStatus ) {
+    public Meeting(int meetingId, String meetingMode, LocalDate date, LocalTime time, String place, User user, String event, MeetingStatus meetingStatus ) {
         this.meetingId = meetingId;
         this.meetingMode = meetingMode;
         this.date = date;
@@ -72,7 +62,6 @@ public class Meeting {
         this.meetingStatus = meetingStatus;
         this.user = user;
         this.event = event;
-        this.paymentStatus = paymentStatus;
     }
 
     public int getMeetingId() {
@@ -115,17 +104,19 @@ public class Meeting {
         this.place = place;
     }
 
-    public @NotNull MeetingStatus getStatus() {
+    public @NotNull MeetingStatus getMeetingStatus() {
         return meetingStatus;
     }
 
-    public void setMeetingStatus(@NotNull MeetingStatus status) {
+
+    public void setMeetingStatus( @NotNull MeetingStatus status) {
         this.meetingStatus = status;
     }
 
     public User getUser() {
         return user;
     }
+
 
     public void setUser(User user) {
         this.user = user;
@@ -145,10 +136,10 @@ public class Meeting {
     }
 
     // Enum for MeetingStatus
+    //public enum MeetingStatus {
+      //  PENDING, CONFIRMED, COMPLETED, CANCELED;
+
+//    }
 
 
-    // Enum for MeetingPaymentStatus
-    public enum PaymentStatus {
-        PENDING, PAID, FAILED
-    }
 }

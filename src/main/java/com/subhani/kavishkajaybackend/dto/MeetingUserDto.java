@@ -1,6 +1,5 @@
 package com.subhani.kavishkajaybackend.dto;
 
-import com.subhani.kavishkajaybackend.entity.Meeting;
 import com.subhani.kavishkajaybackend.enumeration.MeetingStatus;
 
 import java.time.LocalDate;
@@ -12,24 +11,50 @@ public class MeetingUserDto {
     private LocalDate date;
     private LocalTime time;
     private String place;
+    private String event;
     private MeetingStatus status;
     private String userName;
 
     public MeetingUserDto() {
     }
 
-    public MeetingUserDto(int id, String meetingMode, LocalDate date, LocalTime time, String place, MeetingStatus status, String userName) {
+    public String getEvent() {
+        return event;
+    }
+
+    public void setEvent(String event) {
+        this.event = event;
+    }
+
+    public MeetingStatus getMeetingStatus() {
+        return status;
+    }
+
+    public void setMeetingStatus(MeetingStatus meetingStatus) {
+        this.status = meetingStatus;
+    }
+
+    public MeetingUserDto(int id, String meetingMode, LocalDate date, LocalTime time, String place, String event, MeetingStatus status, String userName) {
         this.id = id;
         this.meetingMode = meetingMode;
         this.date = date;
         this.time = time;
         this.place = place;
+        this.event = event;
         this.status = status;
         this.userName = userName;
     }
 
     public int getId() {
         return id;
+    }
+
+    public MeetingStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(MeetingStatus status) {
+        this.status = status;
     }
 
     public void setId(int id) {
@@ -68,14 +93,6 @@ public class MeetingUserDto {
         this.place = place;
     }
 
-    public MeetingStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(MeetingStatus status) {
-        this.status = status;
-    }
-
     public String getUserName() {
         return userName;
     }
@@ -87,11 +104,13 @@ public class MeetingUserDto {
     @Override
     public String toString() {
         return "MeetingUserDto{" +
-                "meetingMode='" + meetingMode + '\'' +
+                "id=" + id +
+                ", meetingMode='" + meetingMode + '\'' +
                 ", date=" + date +
                 ", time=" + time +
                 ", place='" + place + '\'' +
-                ", status='" + status + '\'' +
+                ", event='" + event + '\'' +
+                ", status=" + status +
                 ", userName='" + userName + '\'' +
                 '}';
     }
