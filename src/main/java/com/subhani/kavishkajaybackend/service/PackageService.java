@@ -1,8 +1,6 @@
 package com.subhani.kavishkajaybackend.service;
 
-import com.subhani.kavishkajaybackend.dto.AddPackageItemDto;
-import com.subhani.kavishkajaybackend.dto.AddPackageRequestDto;
-import com.subhani.kavishkajaybackend.dto.UpdatePackageRequestDto;
+import com.subhani.kavishkajaybackend.dto.*;
 import com.subhani.kavishkajaybackend.entity.AdditionalItem;
 import com.subhani.kavishkajaybackend.entity.PackageItem;
 import com.subhani.kavishkajaybackend.entity.PackagePackageItem;
@@ -69,13 +67,22 @@ public class PackageService {
 
 
 
-    // ✅ Add Package item
-    public AdditionalItem addPackageItem(AddPackageItemDto additionalItem) {
+    // ✅ Add Additional item
+    public AdditionalItem addAdditionalItem(AddAdditionalItemDto additionalItem) {
         AdditionalItem newPackage = new AdditionalItem();
         newPackage.setName(additionalItem.getName());
         newPackage.setPrice(additionalItem.getPrice());
         AdditionalItem savedPackage;
         savedPackage = additionalItemRepository.save(newPackage);
+        return savedPackage;
+    }
+
+    // ✅ Add Package item
+    public PackageItem addPackageItem(AddPackageItemDto packageItem) {
+        PackageItem newPackage = new PackageItem();
+        newPackage.setName(packageItem.getName());
+        PackageItem savedPackage;
+        savedPackage = packageItemRepository.save(newPackage);
         return savedPackage;
     }
 
@@ -124,4 +131,13 @@ public class PackageService {
         return mapper.toDtoList(items);
 
     }
+
+
+    public List<CreateSessionDTO.ItemDto> getAdditionalItems() {
+
+        List<AdditionalItem> items = additionalItemRepository.findAll();
+        return mapper.toAdditionalItemDTOList(items);
+
+    }
+
 }

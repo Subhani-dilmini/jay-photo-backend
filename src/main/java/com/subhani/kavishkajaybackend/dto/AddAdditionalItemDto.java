@@ -2,17 +2,20 @@ package com.subhani.kavishkajaybackend.dto;
 
 import java.math.BigDecimal;
 
-public class AddPackageItemDto {
+public class AddAdditionalItemDto {
     private Long itemId;
 
     private String name;
 
-    public AddPackageItemDto() {
+    private BigDecimal price;
+
+    public AddAdditionalItemDto() {
     }
 
-    public AddPackageItemDto(Long itemId, String name) {
+    public AddAdditionalItemDto(Long itemId, String name, BigDecimal price) {
         this.itemId = itemId;
         this.name = name;
+        this.price = price;
     }
 
     public Long getItemId() {
@@ -29,5 +32,13 @@ public class AddPackageItemDto {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 }
