@@ -1,13 +1,12 @@
 package com.subhani.kavishkajaybackend.service;
 
-import com.subhani.kavishkajaybackend.dto.AddPackageRequestDto;
-import com.subhani.kavishkajaybackend.dto.UpdatePackageRequestDto;
+import com.subhani.kavishkajaybackend.dto.*;
+import com.subhani.kavishkajaybackend.entity.AdditionalItem;
 import com.subhani.kavishkajaybackend.entity.PackageItem;
 import com.subhani.kavishkajaybackend.entity.PackagePackageItem;
 import com.subhani.kavishkajaybackend.entity.PhotographicPackage;
-import com.subhani.kavishkajaybackend.repo.PackageItemRepo;
-import com.subhani.kavishkajaybackend.repo.PackagePackageItemRepo;
-import com.subhani.kavishkajaybackend.repo.PackageRepo;
+import com.subhani.kavishkajaybackend.mapper.PackageMapper;
+import com.subhani.kavishkajaybackend.repo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,15 +14,28 @@ import java.util.List;
 
 @Service
 public class PackageService {
+    private final PackageMapper mapper;
+    @Autowired
+    private final PackageRepo packageRepository;
 
     @Autowired
-    private PackageRepo packageRepository;
+    private final PackageItemRepo packageItemRepository;
 
     @Autowired
-    private PackageItemRepo packageItemRepository;
+    private  final PackagePackageItemRepo packagePackageItemRepository;
 
     @Autowired
-    private PackagePackageItemRepo packagePackageItemRepository;
+    private final AdditionalItemRepo additionalItemRepository;
+
+
+    public PackageService(PackageMapper mapper, PackageRepo packageRepository, PackageItemRepo packageItemRepository, PackagePackageItemRepo packagePackageItemRepository, AdditionalItemRepo additionalItemRepository) {
+        this.mapper = mapper;
+        this.packageRepository = packageRepository;
+        this.packageItemRepository = packageItemRepository;
+        this.packagePackageItemRepository = packagePackageItemRepository;
+        this.additionalItemRepository = additionalItemRepository;
+    }
+
 
     // ✅ Add Package
     public PhotographicPackage addPackage(AddPackageRequestDto request) {
@@ -32,12 +44,13 @@ public class PackageService {
         newPackage.setPrice(request.getPrice());
         PhotographicPackage savedPackage = packageRepository.save(newPackage);
 
-        for (int i = 0; i < request.getItemNames().size(); i++) {
-            String itemName = request.getItemNames().get(i);
-            int quantity = request.getQuantities().get(i);
+        for (AddPackageRequestDto.PackageItemDto packageItemDto : request.getPackageItems()) {
+            Long itemId = packageItemDto.getItem().getItemId();
+            String itemName = packageItemDto.getItem().getName();
+            int quantity = packageItemDto.getQuantity();
 
-            // Find or Create Item
-            PackageItem item = packageItemRepository.findByName(itemName)
+            // Find or create the item by ID or name
+            PackageItem item = packageItemRepository.findById(itemId)
                     .orElseGet(() -> packageItemRepository.save(new PackageItem(itemName)));
 
             // Create PackagePackageItem relationship
@@ -49,6 +62,27 @@ public class PackageService {
             packagePackageItemRepository.save(packageItem);
         }
 
+        return savedPackage;
+    }
+
+
+
+    // ✅ Add Additional item
+    public AdditionalItem addAdditionalItem(AddAdditionalItemDto additionalItem) {
+        AdditionalItem newPackage = new AdditionalItem();
+        newPackage.setName(additionalItem.getName());
+        newPackage.setPrice(additionalItem.getPrice());
+        AdditionalItem savedPackage;
+        savedPackage = additionalItemRepository.save(newPackage);
+        return savedPackage;
+    }
+
+    // ✅ Add Package item
+    public PackageItem addPackageItem(AddPackageItemDto packageItem) {
+        PackageItem newPackage = new PackageItem();
+        newPackage.setName(packageItem.getName());
+        PackageItem savedPackage;
+        savedPackage = packageItemRepository.save(newPackage);
         return savedPackage;
     }
 
@@ -81,12 +115,29 @@ public class PackageService {
 
     // ✅ Get All Packages
     public List<PhotographicPackage> getAllPackages() {
+
         return packageRepository.findAll();
     }
 
     // ✅ Delete Package
     public void deletePackage(Long packageId) {
+
         packageRepository.deleteById(packageId);
+    }
+
+    public List<AddPackageRequestDto.ItemDto> getAllItems() {
+
+        List<PackageItem> items = packageItemRepository.findAll();
+        return mapper.toDtoList(items);
+
+    }
+
+
+    public List<CreateSessionDTO.ItemDto> getAdditionalItems() {
+
+        List<AdditionalItem> items = additionalItemRepository.findAll();
+        return mapper.toAdditionalItemDTOList(items);
+
     }
 
 }

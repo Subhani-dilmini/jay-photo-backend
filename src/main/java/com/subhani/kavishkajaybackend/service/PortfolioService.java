@@ -1,9 +1,6 @@
 package com.subhani.kavishkajaybackend.service;
 
-import com.subhani.kavishkajaybackend.dto.AlbumDetailsDTO;
-import com.subhani.kavishkajaybackend.dto.CategoryDTO;
-import com.subhani.kavishkajaybackend.dto.CategoryWithAlbumsDTO;
-import com.subhani.kavishkajaybackend.dto.CreateAlbumDTO;
+import com.subhani.kavishkajaybackend.dto.*;
 import com.subhani.kavishkajaybackend.entity.PhotoAlbum;
 import com.subhani.kavishkajaybackend.entity.PortfolioCategory;
 import com.subhani.kavishkajaybackend.mapper.PortfolioMapper;
@@ -20,6 +17,7 @@ public class PortfolioService {
     private final PhotoAlbumRepo albumRepository;
     private final PortfolioMapper mapper;
 
+
     public PortfolioService(PortfolioCategoryRepo categoryRepository,
                             PhotoAlbumRepo albumRepository,
                             PortfolioMapper mapper) {
@@ -32,17 +30,29 @@ public class PortfolioService {
         return mapper.toCategoryDTOList(categoryRepository.findAll());
     }
 
+    public CategoryDTO getCategoryDetails(Long categoryId) {
+        return mapper.toCategoryDTO(categoryRepository.findById( categoryId)
+                .orElseThrow(() -> new RuntimeException("Category not found")));
+
+    }
+
     public CategoryWithAlbumsDTO getAlbumsByCategoryId(Long categoryId) {
         PortfolioCategory category = categoryRepository.findById(categoryId)
                 .orElseThrow(() -> new RuntimeException("Category not found"));
         return mapper.toCategoryWithAlbumsDTO(category);
     }
 
+
     public void addAlbum(Long categoryId, CreateAlbumDTO dto) {
         PortfolioCategory category = categoryRepository.findById(categoryId)
                 .orElseThrow(() -> new RuntimeException("Category not found"));
         PhotoAlbum album = mapper.toPhotoAlbum(dto, category);
         albumRepository.save(album);
+    }
+
+    public void addCategory(CreateCategoryDTO dto) {
+        PortfolioCategory category = mapper.toCategory(dto);
+        categoryRepository.save(category);
     }
 
     public AlbumDetailsDTO getAlbum(Long albumId) {

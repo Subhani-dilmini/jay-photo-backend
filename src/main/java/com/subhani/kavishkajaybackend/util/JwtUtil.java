@@ -1,5 +1,6 @@
 package com.subhani.kavishkajaybackend.util;
 
+import com.subhani.kavishkajaybackend.entity.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -15,9 +16,15 @@ public class JwtUtil {
 
     private final SecretKey SECRET_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS256); // Change this in production
 
-    public String generateToken(String email) {
+    public String generateToken(User user) {
         return Jwts.builder()
-                .setSubject(email)
+                .setSubject(user.getUsername())
+                .claim("id", user.getId())
+                .claim("email", user.getEmail())
+                .claim("role", user.getRole())
+                .claim("name", user.getFirstName() + " " + user.getLastName())
+                .claim("phoneNumber", user.getPhoneNumber())
+                .claim("address", user.getAddress())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + 2 * 60 * 60 * 1000)) // 1 hour
                 .signWith(SignatureAlgorithm.HS256, SECRET_KEY)

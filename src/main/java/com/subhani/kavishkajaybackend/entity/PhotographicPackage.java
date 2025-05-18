@@ -1,7 +1,7 @@
 package com.subhani.kavishkajaybackend.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,16 +16,9 @@ public class PhotographicPackage {
     private String name;
     private Double price;
 
-    @OneToMany(mappedBy = "pkg", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(mappedBy = "pkg", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    @JsonManagedReference
     private List<PackagePackageItem> packageItems = new ArrayList<>();
-
-
-    public PhotographicPackage(Long packageId, String name, Double price, List<PackagePackageItem> packageItems) {
-        this.packageId = packageId;
-        this.name = name;
-        this.price = price;
-        this.packageItems = packageItems;
-    }
 
     public PhotographicPackage() {
     }
@@ -61,15 +54,4 @@ public class PhotographicPackage {
     public void setPackageItems(List<PackagePackageItem> packageItems) {
         this.packageItems = packageItems;
     }
-
-    @Override
-    public String toString() {
-        return "Package{" +
-                "packageId=" + packageId +
-                ", name='" + name + '\'' +
-                ", price=" + price +
-                ", packageItems=" + packageItems +
-                '}';
-    }
 }
-

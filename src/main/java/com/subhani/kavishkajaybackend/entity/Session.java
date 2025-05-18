@@ -5,11 +5,9 @@ import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
-@Table(name = "session")
+@Table(name = "`Session`")
 public class Session {
 
     @Id
@@ -23,6 +21,8 @@ public class Session {
     private LocalTime time;
 
     private String place;
+
+    private String event;
 
     @Enumerated(EnumType.STRING)
     private SessionStatus sessionStatus;
@@ -43,7 +43,7 @@ public class Session {
     public Session() {
     }
 
-    public Session(Long sessionId, BigDecimal amount, LocalDate date, LocalTime time, String place, SessionStatus sessionStatus, PaymentStatus paymentStatus, double payment, User user, PhotographicPackage aPackage) {
+    public Session(Long sessionId, BigDecimal amount, LocalDate date, LocalTime time, String place, SessionStatus sessionStatus, PaymentStatus paymentStatus, double payment, User user, PhotographicPackage aPackage, String event) {
         this.id = sessionId;
         this.amount = amount;
         this.date = date;
@@ -54,6 +54,7 @@ public class Session {
         this.payment = payment;
         this.user = user;
         this.aPackage = aPackage;
+        this.event = event;
     }
 
     public Long getSessionId() {
@@ -136,6 +137,15 @@ public class Session {
         this.aPackage = aPackage;
     }
 
+
+    public String getEvent() {
+        return event;
+    }
+
+    public void setEvent(String event) {
+        this.event = event;
+    }
+
     @Override
     public String toString() {
         return "Session{" +
@@ -154,7 +164,7 @@ public class Session {
 
     // Enum for SessionStatus
     public enum SessionStatus {
-        PENDING, COMPLETED, CANCELED
+        PENDING, CONFIRMED, COMPLETED, CANCELED
     }
 
     // Enum for PaymentStatus

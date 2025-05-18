@@ -2,6 +2,7 @@ package com.subhani.kavishkajaybackend.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -43,7 +44,9 @@ public class SecurityConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .csrf(csrf -> csrf.disable())  // Disable CSRF protection (if needed)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/**").permitAll()   // Allow access to /auth endpoints without authentication
+
+                        .requestMatchers("/auth/**","/api/portfolio/**","/api/blog/blogs/**", "/api/packages/**", "/api/meetings/**", "/api/meetings","/api/users/**", "/api/**").permitAll()   // Allow access to /auth endpoints without authentication
+
                         .anyRequest().authenticated()   // Require authentication for all other endpoints
                 )
                 .formLogin(withDefaults())   // Default form login

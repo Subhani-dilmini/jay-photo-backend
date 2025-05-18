@@ -1,5 +1,7 @@
 package com.subhani.kavishkajaybackend.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -8,26 +10,21 @@ public class PackagePackageItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id; // Primary key for the join table
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "package_id", nullable = false)
+    @JsonBackReference
     private PhotographicPackage pkg;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "item_id", nullable = false)
+    @JsonManagedReference
     private PackageItem item;
 
     private int quantity;
 
     public PackagePackageItem() {
-    }
-
-    public PackagePackageItem(Long id, PhotographicPackage pkg, PackageItem item, int quantity) {
-        this.id = id;
-        this.pkg = pkg;
-        this.item = item;
-        this.quantity = quantity;
     }
 
     public Long getId() {
@@ -61,16 +58,4 @@ public class PackagePackageItem {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
-
-    @Override
-    public String toString() {
-        return "PackagePackageItem{" +
-                "id=" + id +
-                ", pkg=" + pkg +
-                ", item=" + item +
-                ", quantity=" + quantity +
-                '}';
-    }
-
-
 }
